@@ -1,0 +1,62 @@
+.landing-page {
+	height: 100vh;
+	background-image: url('../../assets/images/evx-bg-1.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.landing-page__container {
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 50%;
+}
+
+.landing-page__container__content {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+
+	& h1 {
+		font-size: 42px;
+		font-weight: 700;
+		background: linear-gradient(
+			-45deg,
+			rgba(9, 28, 60, 1) 0%,
+			rgba(67, 46, 103, 1) 100%
+		);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	& p {
+		font-size: 22px;
+		color: whitesmoke;
+	}
+
+	& button {
+		display: inline-block;
+		padding: 1em 2em;
+		background-image: linear-gradient(
+			-45deg,
+			rgba(9, 28, 60, 1) 0%,
+			rgba(67, 46, 103, 1) 100%
+		);
+		text-decoration: none;
+		font-weight: 700;
+		text-transform: uppercase;
+		font-size: 14px;
+		letter-spacing: 0.2em;
+		border-radius: 12px;
+		color: white;
+		cursor: pointer;
+	}
+}
