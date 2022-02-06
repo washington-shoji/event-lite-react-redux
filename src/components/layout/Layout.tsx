@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Footer from '../footer/Footer';
 import NavigationBar from '../navigation-bar/NavigationBar';
 import './Layout.scss';
 
@@ -11,7 +12,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
 		<div className='layout'>
 			<NavigationBar />
 			{children}
-			<h1>This is a footer</h1>
+			<Footer />
 		</div>
 	);
 }
