@@ -1,10 +1,12 @@
+@use '../../index';
+
 .navigation-bar {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	backdrop-filter: blur(2.5px) saturate(180%);
 	-webkit-backdrop-filter: blur(2.5px) saturate(180%);
-	background-color: rgba(17, 25, 40, 0.2);
+	background-color: rgba(234, 235, 236, 0.6);
 }
 
 .navigation-bar__logo {
@@ -17,5 +19,5 @@
 
 .navigation-bar__menu__container {
 	display: flex;
-	gap: 12px;
+	gap: index.$secondary-gap-1;
 }
