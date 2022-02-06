@@ -1,0 +1,23 @@
+@use '../../index';
+
+.main {
+	padding: 5.5em;
+}
+
+.main__car-wrapper {
+	display: grid;
+	gap: index.$main-gap-1;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (max-width: 1000px) {
+	.main__car-wrapper {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media only screen and (max-width: 750px) {
+	.main__car-wrapper {
+		grid-template-columns: 1fr;
+	}
+}
