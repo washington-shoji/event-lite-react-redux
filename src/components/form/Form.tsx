@@ -9,10 +9,12 @@ import {
 	useField,
 } from 'formik';
 import { IMainCardProps } from '../main/MainCard';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Button from '../button/Button';
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper';
 import { EventValidationSchema } from '../../utils/validator/form-validator';
+import { cardContent } from '../../data/dummy-data/dummy-card';
+import ButtonLoading from '../button/ButtonLoading';
 
 export default function EventForm() {
 	const { state } = useLocation<IMainCardProps>();
@@ -52,6 +54,8 @@ export default function EventForm() {
 							image: parsedImageUrl,
 							status: values.status,
 						};
+
+						cardContent.push(data);
 					}}
 				>
 					{(formProps) => (
@@ -180,14 +184,19 @@ export default function EventForm() {
 										</div>
 									) : null}
 								</div>
-
-								<div>
-									<Button title='Submit' />
+								<div className='form__button'>
+									{formProps.isSubmitting ? (
+										<ButtonLoading title='Submitting' />
+									) : (
+										<div>
+											<Button type='submit' title='Submit' />
+										</div>
+									)}
+									<Link to='/'>
+										<Button type='button' title='Back' />
+									</Link>
 								</div>
 							</div>
-							{/* <div>
-								<Button title='Submit' />
-							</div> */}
 						</Form>
 					)}
 				</Formik>
