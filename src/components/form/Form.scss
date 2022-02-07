@@ -25,6 +25,13 @@
 
 .form__content__left {
 	flex: 2;
+	display: flex;
+	gap: index.$main-gap-2;
+	flex-direction: column;
+
+	& img {
+		width: 50%;
+	}
 }
 
 .form__content__right {
