@@ -4,7 +4,7 @@
 
     I.e. yarn add
     
-    sass react-router-dom formik
+    sass react-router-dom formik axios
 
 ## Dev Dependencies
 
