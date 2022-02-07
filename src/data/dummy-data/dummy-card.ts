@@ -2,7 +2,7 @@ export const cardContent = [
 	{
 		id: '1',
 		title: 'Title 1',
-		date: '1/2/2022',
+		date: '2022-02-04',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer.
@@ -14,7 +14,7 @@ export const cardContent = [
 	{
 		id: '2',
 		title: 'Title 2',
-		date: '1/2/2022',
+		date: '2022-02-04',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer.
@@ -26,7 +26,7 @@ export const cardContent = [
 	{
 		id: '3',
 		title: 'Title 3',
-		date: '1/2/2022',
+		date: '2022-02-04',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer.
