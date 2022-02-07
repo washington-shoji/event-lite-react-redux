@@ -4,9 +4,10 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	backdrop-filter: blur(2.5px) saturate(180%);
-	-webkit-backdrop-filter: blur(2.5px) saturate(180%);
-	background-color: rgba(234, 235, 236, 0.6);
+	padding: 6px 0;
+	backdrop-filter: blur(12.5px) saturate(180%);
+	-webkit-backdrop-filter: blur(12.5px) saturate(180%);
+	background-color: rgba(234, 235, 236, 0.4);
 }
 
 .navigation-bar__logo {

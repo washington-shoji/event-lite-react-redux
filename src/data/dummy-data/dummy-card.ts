@@ -1,4 +1,6 @@
-export const cardContent = [
+import { IMainCardProps } from '../../components/main/MainCard';
+
+export const cardContent: IMainCardProps[] = [
 	{
 		id: '1',
 		title: 'Title 1',

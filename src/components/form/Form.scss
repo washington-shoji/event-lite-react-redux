@@ -3,6 +3,10 @@
 .form {
 	display: flex;
 	flex-direction: column;
+	gap: index.$main-gap-2;
+	padding: 32px;
+	margin: 0.5em;
+	border-radius: 4px;
 	backdrop-filter: blur(16px) saturate(180%);
 	-webkit-backdrop-filter: blur(16px) saturate(180%);
 	background-color: rgba(105, 101, 101, 0.75);
@@ -28,9 +32,11 @@
 	display: flex;
 	gap: index.$main-gap-2;
 	flex-direction: column;
+	justify-content: baseline;
 
 	& img {
-		width: 50%;
+		border-radius: 4px;
+		width: 100%;
 	}
 }
 
@@ -86,5 +92,14 @@
 			font-weight: 500;
 			transition: 0.3s ease;
 		}
+	}
+	.form__validation {
+		& P {
+			color: red;
+		}
+	}
+	& .form__button {
+		display: flex;
+		justify-content: space-evenly;
 	}
 }
