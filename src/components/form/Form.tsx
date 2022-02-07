@@ -12,6 +12,7 @@ import { IMainCardProps } from '../main/MainCard';
 import { useLocation } from 'react-router-dom';
 import Button from '../button/Button';
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper';
+import { EventValidationSchema } from '../../utils/validator/form-validator';
 
 export default function EventForm() {
 	const { state } = useLocation<IMainCardProps>();
@@ -36,6 +37,7 @@ export default function EventForm() {
 			<div>
 				<Formik
 					initialValues={initialState}
+					validationSchema={EventValidationSchema}
 					onSubmit={async (values: IMainCardProps) => {
 						const parsedImageUrl = await cloudinaryImageHandlerHelper(
 							values.image
@@ -84,6 +86,11 @@ export default function EventForm() {
 											placeholder='Event title'
 											className='form__field'
 										/>
+										{formProps.errors.title && formProps.touched.title ? (
+											<div className='form__validation'>
+												<p>{formProps.errors.title}</p>
+											</div>
+										) : null}
 									</div>
 									<div>
 										<label htmlFor='date'>Date</label>
@@ -94,6 +101,11 @@ export default function EventForm() {
 											type='date'
 											className='form__field'
 										/>
+										{formProps.errors.date && formProps.touched.date ? (
+											<div className='form__validation'>
+												<p>{formProps.errors.date}</p>
+											</div>
+										) : null}
 									</div>
 								</div>
 
@@ -106,6 +118,11 @@ export default function EventForm() {
 											placeholder='Event location'
 											className='form__field'
 										/>
+										{formProps.errors.location && formProps.touched.location ? (
+											<div className='form__validation'>
+												<p>{formProps.errors.location}</p>
+											</div>
+										) : null}
 									</div>
 									<div>
 										<label htmlFor='status'>Status</label>
@@ -119,6 +136,11 @@ export default function EventForm() {
 											<option value='open'>Open</option>
 											<option value='posted'>Posted</option>
 										</Field>
+										{formProps.errors.status && formProps.touched.status ? (
+											<div className='form__validation'>
+												<p>{formProps.errors.status}</p>
+											</div>
+										) : null}
 									</div>
 								</div>
 
@@ -132,6 +154,12 @@ export default function EventForm() {
 										rows='2'
 										className='form__field'
 									/>
+									{formProps.errors.shortDescription &&
+									formProps.touched.shortDescription ? (
+										<div className='form__validation'>
+											<p>{formProps.errors.shortDescription}</p>
+										</div>
+									) : null}
 								</div>
 
 								<div className='form__inputs'>
@@ -144,6 +172,13 @@ export default function EventForm() {
 										rows='10'
 										className='form__field'
 									/>
+
+									{formProps.errors.fullDescription &&
+									formProps.touched.fullDescription ? (
+										<div className='form__validation'>
+											<p>{formProps.errors.fullDescription}</p>
+										</div>
+									) : null}
 								</div>
 
 								<div>
