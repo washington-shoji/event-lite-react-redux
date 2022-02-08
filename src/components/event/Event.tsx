@@ -8,7 +8,7 @@ export default function Event(): JSX.Element {
 	const { state } = useLocation<IMainCardProps>();
 	const history = useHistory();
 	const {
-		id,
+		_id,
 		title,
 		date,
 		location,
