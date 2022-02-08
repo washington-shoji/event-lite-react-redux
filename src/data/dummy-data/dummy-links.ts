@@ -6,8 +6,8 @@ export const links: ILinksProps[] = [
 		link: '/',
 	},
 	{
-		label: 'events',
-		link: '/events',
+		label: 'create-event',
+		link: '/create-event',
 	},
 	{
 		label: 'profile',

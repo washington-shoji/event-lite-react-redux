@@ -4,9 +4,9 @@ import Button from '../button/Button';
 import { Link } from 'react-router-dom';
 
 export interface IMainCardProps {
-	id?: string;
+	_id?: string;
 	title: string;
-	date: string;
+	date: Date;
 	location: string;
 	shortDescription: string;
 	fullDescription: string;
@@ -25,7 +25,7 @@ export default function MainCard(props: IMainCardProps) {
 				<p>{props.date}</p>
 				<p>{props.location}</p>
 				<p>{props.status}</p>
-				<Link to={{ pathname: `/event/${props.id}`, state: { ...props } }}>
+				<Link to={{ pathname: `/event/${props._id}`, state: { ...props } }}>
 					<Button onClick={() => {}} title={'Info'} />
 				</Link>
 			</div>

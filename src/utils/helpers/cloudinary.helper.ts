@@ -7,8 +7,8 @@ export async function cloudinaryImageHandlerHelper(
 	const data = new FormData();
 
 	data.append('file', image);
-	data.append('upload_preset', 'eventx');
-	data.append('cloud_name', 'dyl8nylbd');
+	data.append('upload_preset', `${process.env.REACT_APP_UPLOAD_PRESET}`);
+	data.append('cloud_name', `${process.env.REACT_APP_CLOUD_NAME}`);
 
 	try {
 		if (!image) {
@@ -16,7 +16,7 @@ export async function cloudinaryImageHandlerHelper(
 		}
 
 		const response = await axios.post(
-			'https://api.cloudinary.com/v1_1/dyl8nylbd/image/upload',
+			`${process.env.REACT_APP_CLOUDINARY_URL}`,
 			data
 		);
 
