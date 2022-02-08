@@ -6,7 +6,7 @@ export async function axiosCreateEventHelper(
 ): Promise<void> {
 	try {
 		const result = await axios.post(
-			`${process.env.REACT_APP_BASE_API_URL}`,
+			`${process.env.REACT_APP_BASE_API_URL}/event`,
 			data
 		);
 

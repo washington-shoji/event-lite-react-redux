@@ -123,7 +123,7 @@ export default function EventForm(props: { formType: string }) {
 											id='date'
 											name='date'
 											placeholder='Event date'
-											type='date'
+											type='datetime-local'
 											className='form__field'
 										/>
 										{formProps.errors.date && formProps.touched.date ? (

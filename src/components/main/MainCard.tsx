@@ -22,7 +22,7 @@ export default function MainCard(props: IMainCardProps) {
 			</div>
 			<div className='main-card__content'>
 				<h1>{props.title}</h1>
-				<p>{props.date}</p>
+				<p>{new Date(props.date).toDateString()}</p>
 				<p>{props.location}</p>
 				<p>{props.status}</p>
 				<Link to={{ pathname: `/event/${props._id}`, state: { ...props } }}>

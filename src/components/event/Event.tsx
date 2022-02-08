@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import { axiosDeleteEventHelper } from '../../utils/helpers/axios/axios-delete-event';
 import Button from '../button/Button';
 import { IMainCardProps } from '../main/MainCard';
 import './Event.scss';
@@ -27,7 +28,7 @@ export default function Event(): JSX.Element {
 				<div className='event__contents'>
 					<div className='event__details'>
 						<h1>{title}</h1>
-						<p>{date}</p>
+						<p>{new Date(date).toDateString()}</p>
 						<p>{location}</p>
 						<p>{status}</p>
 						<p>{shortDescription}</p>
@@ -38,7 +39,10 @@ export default function Event(): JSX.Element {
 							<Button title={'Edit'} />
 						</Link>
 
-						<Button title={'Delete'} />
+						<Button
+							title={'Delete'}
+							onClick={() => axiosDeleteEventHelper(_id as string)}
+						/>
 
 						<Button title={'Back'} onClick={() => history.push('/')} />
 					</div>
