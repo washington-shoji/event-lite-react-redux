@@ -38,6 +38,25 @@
 		border-radius: 4px;
 		width: 100%;
 	}
+
+	& .form__image__inputs {
+		& label {
+			text-transform: uppercase;
+			color: white;
+		}
+
+		& .form__field {
+			outline: none;
+			display: block;
+			background: rgba(#fcfcfc, 0.8);
+			border: 0;
+			border-radius: 4px;
+			box-sizing: border-box;
+			padding: 12px 20px;
+			font-weight: 500;
+			transition: 0.3s ease;
+		}
+	}
 }
 
 .form__content__right {

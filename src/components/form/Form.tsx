@@ -15,19 +15,35 @@ import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.hel
 import { EventValidationSchema } from '../../utils/validator/form-validator';
 import { cardContent } from '../../data/dummy-data/dummy-card';
 import ButtonLoading from '../button/ButtonLoading';
+import { axiosCreateEventHelper } from '../../utils/helpers/axios/axios-create-event';
 
-export default function EventForm() {
+export default function EventForm(props: { formType: string }) {
 	const { state } = useLocation<IMainCardProps>();
 
-	const [imagePreview, setImagePreview] = useState(state.image);
+	const noState = {
+		title: '',
+		date: new Date(),
+		location: '',
+		shortDescription: '',
+		fullDescription: '',
+		image: '',
+		status: '',
+	};
+
+	const [imagePreview, setImagePreview] = useState(
+		props.formType === 'update' ? state.image : noState.image
+	);
+
+	const formStateType = props.formType === 'update' ? state : noState;
+
 	const initialState = {
-		title: state.title,
-		date: state.date,
-		location: state.location,
-		shortDescription: state.shortDescription,
-		fullDescription: state.fullDescription,
+		title: formStateType.title,
+		date: new Date(formStateType.date),
+		location: formStateType.location,
+		shortDescription: formStateType.shortDescription,
+		fullDescription: formStateType.fullDescription,
 		image: imagePreview,
-		status: state.status,
+		status: formStateType.status,
 	};
 
 	return (
@@ -40,7 +56,7 @@ export default function EventForm() {
 				<Formik
 					initialValues={initialState}
 					validationSchema={EventValidationSchema}
-					onSubmit={async (values: IMainCardProps) => {
+					onSubmit={async (values: IMainCardProps, { resetForm }) => {
 						const parsedImageUrl = await cloudinaryImageHandlerHelper(
 							values.image
 						);
@@ -55,7 +71,11 @@ export default function EventForm() {
 							status: values.status,
 						};
 
-						cardContent.push(data);
+						props.formType === 'update'
+							? cardContent.push(data)
+							: await axiosCreateEventHelper(data);
+
+						resetForm(initialState);
 					}}
 				>
 					{(formProps) => (
@@ -68,6 +88,7 @@ export default function EventForm() {
 										id='image'
 										name='image'
 										type='file'
+										className='form__field'
 										onChange={(event: any) => {
 											formProps.setFieldValue(
 												'image',
