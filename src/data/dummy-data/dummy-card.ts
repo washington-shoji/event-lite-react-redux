@@ -1,10 +1,10 @@
-import { IMainCardProps } from '../../components/main/MainCard';
+import { IEvent } from '../../interfaces/event.interface';
 
-export const cardContent: IMainCardProps[] = [
+export const cardContent: IEvent[] = [
 	{
 		_id: '1',
 		title: 'Title 1',
-		date: new Date(),
+		date: '2022-01-01',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer. My parents didn't know much science; in fact, they didn't know science at all. But they could recognize a science book when they saw it, and they spent a lot of time at bookstores, combing the remainder tables for science books to buy for me. I had one of the biggest libraries of any kid in school, built on books that cost 50 cents or a dollar.`,
@@ -14,7 +14,7 @@ export const cardContent: IMainCardProps[] = [
 	{
 		_id: '2',
 		title: 'Title 2',
-		date: new Date(),
+		date: '2022-01-01',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer. My parents didn't know much science; in fact, they didn't know science at all. But they could recognize a science book when they saw it, and they spent a lot of time at bookstores, combing the remainder tables for science books to buy for me. I had one of the biggest libraries of any kid in school, built on books that cost 50 cents or a dollar.`,
@@ -24,7 +24,7 @@ export const cardContent: IMainCardProps[] = [
 	{
 		_id: '3',
 		title: 'Title 3',
-		date: new Date(),
+		date: '2022-01-01',
 		location: 'Sydney',
 		shortDescription: `My parents didn't know much science; in fact, they didn't know science at all `,
 		fullDescription: `Keep in mind that if you take a tour through a hospital and look at every machine with on and off switch that is brought into the service of diagnosing the human condition, that machine is based on principles of physics discovered by a physicist in a machine designed by an engineer. My parents didn't know much science; in fact, they didn't know science at all. But they could recognize a science book when they saw it, and they spent a lot of time at bookstores, combing the remainder tables for science books to buy for me. I had one of the biggest libraries of any kid in school, built on books that cost 50 cents or a dollar.`,

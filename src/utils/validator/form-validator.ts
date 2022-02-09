@@ -5,7 +5,7 @@ export const EventValidationSchema = Yup.object().shape({
 		.min(2, 'Too Short!')
 		.max(50, 'Too Long!')
 		.required('Required'),
-	date: Yup.date().required('Required'),
+	date: Yup.string().required('Required'),
 	location: Yup.string()
 		.min(4, 'Too Short!')
 		.max(20, 'Too Long!')

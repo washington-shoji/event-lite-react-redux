@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { IMainCardProps } from '../../../components/main/MainCard';
+import { IEvent } from '../../../interfaces/event.interface';
 
-export async function axiosCreateEventHelper(
-	data: IMainCardProps
-): Promise<void> {
+export async function axiosCreateEventHelper(data: IEvent): Promise<void> {
 	try {
 		const result = await axios.post(
 			`${process.env.REACT_APP_BASE_API_URL}/event`,
