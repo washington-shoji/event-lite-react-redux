@@ -2,19 +2,9 @@ import React from 'react';
 import './MainCard.scss';
 import Button from '../button/Button';
 import { Link } from 'react-router-dom';
+import { IEvent } from '../../interfaces/event.interface';
 
-export interface IMainCardProps {
-	_id?: string;
-	title: string;
-	date: Date;
-	location: string;
-	shortDescription: string;
-	fullDescription: string;
-	image: string;
-	status: string;
-}
-
-export default function MainCard(props: IMainCardProps) {
+export default function MainCard(props: IEvent) {
 	return (
 		<div className='main-card'>
 			<div className='main-card__image'>

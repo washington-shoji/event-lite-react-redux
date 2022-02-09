@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import { IEvent } from '../../interfaces/event.interface';
 import { axiosDeleteEventHelper } from '../../utils/helpers/axios/axios-delete-event';
 import Button from '../button/Button';
-import { IMainCardProps } from '../main/MainCard';
+
 import './Event.scss';
 
 export default function Event(): JSX.Element {
-	const { state } = useLocation<IMainCardProps>();
+	const { state } = useLocation<IEvent>();
 	const history = useHistory();
 	const {
 		_id,
