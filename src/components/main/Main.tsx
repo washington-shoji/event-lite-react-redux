@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { axiosGetEventHelper } from '../../utils/helpers/axios/axios-get-events';
+import React, { useEffect } from 'react';
+import { getEventsSelector } from '../../redux/slices/get-events-slice';
+import {
+	useAppSelector,
+	useAppDispatch,
+} from '../../utils/hooks/redux/redux-toolkit-hooks';
 import './Main.scss';
-import MainCard, { IMainCardProps } from './MainCard';
+import MainCard from './MainCard';
+import { getEventsFromApiThunk } from './../../redux/slices/get-events-slice';
+import MainLoaderCircles from '../main-loader/MainLoaderCircles';
 
 export default function Main() {
-	const [events, setEvents] = useState<IMainCardProps[]>([]);
+	const { loading, events, errorMessage } = useAppSelector(getEventsSelector);
 
-	async function handleFetch(): Promise<void> {
-		await axiosGetEventHelper(setEvents);
-	}
+	const dispatch = useAppDispatch();
+
 	useEffect(() => {
-		handleFetch();
-	}, []);
+		dispatch(getEventsFromApiThunk());
+	}, [dispatch]);
+
+	if (loading) {
+		return <main className='main'>{loading && <MainLoaderCircles />}</main>;
+	} else if (errorMessage) {
+		<main className='main'>{errorMessage && <h1>{errorMessage}</h1>}</main>;
+	}
 
 	return (
 		<main className='main'>
-			{
-				<div className='main__car-wrapper'>
-					{events.map((card: any) => {
-						return <MainCard key={card._id} {...card} />;
-					})}
-				</div>
-			}
+			<div className='main__car-wrapper'>
+				{events.map((card: any) => {
+					return <MainCard key={card._id} {...card} />;
+				})}
+			</div>
 		</main>
 	);
 }

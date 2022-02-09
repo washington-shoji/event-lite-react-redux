@@ -8,26 +8,48 @@ import {
 	FormikProps,
 	useField,
 } from 'formik';
-import { IMainCardProps } from '../main/MainCard';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Button from '../button/Button';
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper';
 import { EventValidationSchema } from '../../utils/validator/form-validator';
 import { cardContent } from '../../data/dummy-data/dummy-card';
 import ButtonLoading from '../button/ButtonLoading';
 import { axiosCreateEventHelper } from '../../utils/helpers/axios/axios-create-event';
+import { IEvent } from '../../interfaces/event.interface';
+import {
+	useAppDispatch,
+	useAppSelector,
+} from '../../utils/hooks/redux/redux-toolkit-hooks';
+import { createEventSelector } from '../../redux/slices/create-event-slice';
+import { createEventOnApiThunk } from './../../redux/slices/create-event-slice';
+import { updateEventOnApiThunk } from '../../redux/slices/update-event-slice';
+import { updateEventSelector } from './../../redux/slices/update-event-slice';
 
 export default function EventForm(props: { formType: string }) {
-	const { state } = useLocation<IMainCardProps>();
+	const { state } = useLocation<IEvent>();
+
+	const { createLoading, createdEvent, createErrorMessage } =
+		useAppSelector(createEventSelector);
+
+	const { updateLoading, updatedEvent, updateErrorMessage } =
+		useAppSelector(updateEventSelector);
+
+	const dispatch = useAppDispatch();
+
+	const history = useHistory();
+
+	const _id = state._id;
+
+	const event = props.formType === 'update' ? updatedEvent : createdEvent;
 
 	const noState = {
-		title: '',
-		date: new Date(),
-		location: '',
-		shortDescription: '',
-		fullDescription: '',
-		image: '',
-		status: '',
+		title: event.title,
+		date: event.date,
+		location: event.location,
+		shortDescription: event.shortDescription,
+		fullDescription: event.fullDescription,
+		image: event.image,
+		status: event.status,
 	};
 
 	const [imagePreview, setImagePreview] = useState(
@@ -38,7 +60,7 @@ export default function EventForm(props: { formType: string }) {
 
 	const initialState = {
 		title: formStateType.title,
-		date: new Date(formStateType.date),
+		date: formStateType.date,
 		location: formStateType.location,
 		shortDescription: formStateType.shortDescription,
 		fullDescription: formStateType.fullDescription,
@@ -56,7 +78,7 @@ export default function EventForm(props: { formType: string }) {
 				<Formik
 					initialValues={initialState}
 					validationSchema={EventValidationSchema}
-					onSubmit={async (values: IMainCardProps, { resetForm }) => {
+					onSubmit={async (values: IEvent, { resetForm }) => {
 						const parsedImageUrl = await cloudinaryImageHandlerHelper(
 							values.image
 						);
@@ -71,11 +93,16 @@ export default function EventForm(props: { formType: string }) {
 							status: values.status,
 						};
 
-						props.formType === 'update'
-							? cardContent.push(data)
-							: await axiosCreateEventHelper(data);
-
-						resetForm(initialState);
+						//!Todo: Refactor this block of business logic
+						if (props.formType === 'update') {
+							dispatch(updateEventOnApiThunk(_id as string, data));
+							resetForm(initialState);
+							updatedEvent && history.replace('/');
+						} else {
+							dispatch(createEventOnApiThunk(data));
+							resetForm(initialState);
+							createdEvent && history.replace('/');
+						}
 					}}
 				>
 					{(formProps) => (
