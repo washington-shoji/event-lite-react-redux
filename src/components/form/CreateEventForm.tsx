@@ -12,18 +12,19 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import Button from '../button/Button';
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper';
 import { EventValidationSchema } from '../../utils/validator/form-validator';
-import { cardContent } from '../../data/dummy-data/dummy-card';
 import ButtonLoading from '../button/ButtonLoading';
-import { axiosCreateEventHelper } from '../../utils/helpers/axios/axios-create-event';
 import { IEvent } from '../../interfaces/event.interface';
 import {
 	useAppDispatch,
 	useAppSelector,
 } from '../../utils/hooks/redux/redux-toolkit-hooks';
-import { createEventSelector } from '../../redux/slices/create-event-slice';
+import {
+	createEventSelector,
+	createResetState,
+} from '../../redux/slices/create-event-slice';
 import { createEventOnApiThunk } from './../../redux/slices/create-event-slice';
 import { updateEventOnApiThunk } from '../../redux/slices/update-event-slice';
-import { updateEventSelector } from './../../redux/slices/update-event-slice';
+import Toast from '../toast/Toast';
 
 export default function EventForm(props: { formType: string }) {
 	const { state } = useLocation<IEvent>();
@@ -31,41 +32,22 @@ export default function EventForm(props: { formType: string }) {
 	const { createLoading, createdEvent, createErrorMessage } =
 		useAppSelector(createEventSelector);
 
-	const { updateLoading, updatedEvent, updateErrorMessage } =
-		useAppSelector(updateEventSelector);
-
 	const dispatch = useAppDispatch();
 
-	const history = useHistory();
+	const _id = state?._id;
 
-	const _id = state._id;
+	const event = createdEvent;
 
-	const event = props.formType === 'update' ? updatedEvent : createdEvent;
+	const [imagePreview, setImagePreview] = useState(event.image);
 
-	const noState = {
+	const initialState = {
 		title: event.title,
 		date: event.date,
 		location: event.location,
 		shortDescription: event.shortDescription,
 		fullDescription: event.fullDescription,
-		image: event.image,
-		status: event.status,
-	};
-
-	const [imagePreview, setImagePreview] = useState(
-		props.formType === 'update' ? state.image : noState.image
-	);
-
-	const formStateType = props.formType === 'update' ? state : noState;
-
-	const initialState = {
-		title: formStateType.title,
-		date: formStateType.date,
-		location: formStateType.location,
-		shortDescription: formStateType.shortDescription,
-		fullDescription: formStateType.fullDescription,
 		image: imagePreview,
-		status: formStateType.status,
+		status: event.status,
 	};
 
 	return (
@@ -83,6 +65,7 @@ export default function EventForm(props: { formType: string }) {
 							values.image
 						);
 
+						//!Todo: Refactor this block of business logic
 						const data = {
 							title: values.title,
 							date: values.date,
@@ -93,16 +76,8 @@ export default function EventForm(props: { formType: string }) {
 							status: values.status,
 						};
 
-						//!Todo: Refactor this block of business logic
-						if (props.formType === 'update') {
-							dispatch(updateEventOnApiThunk(_id as string, data));
-							resetForm(initialState);
-							updatedEvent && history.replace('/');
-						} else {
-							dispatch(createEventOnApiThunk(data));
-							resetForm(initialState);
-							createdEvent && history.replace('/');
-						}
+						dispatch(createEventOnApiThunk(data));
+						!createErrorMessage && resetForm(initialState);
 					}}
 				>
 					{(formProps) => (
@@ -248,6 +223,24 @@ export default function EventForm(props: { formType: string }) {
 						</Form>
 					)}
 				</Formik>
+				{createdEvent._id !== '' && (
+					<Toast
+						type={'success'}
+						title={'Success'}
+						resetState={createResetState()}
+						description={'You event was successfully created!'}
+						redirect={'/'}
+					/>
+				)}
+
+				{createErrorMessage.length > 0 && (
+					<Toast
+						type={'error'}
+						title={'Error'}
+						resetState={createResetState()}
+						description={createErrorMessage}
+					/>
+				)}
 			</div>
 		</div>
 	);
