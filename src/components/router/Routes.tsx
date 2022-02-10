@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CreateEventPage from '../../pages/create-event/CreateEventPage';
 import Event from '../event/Event';
-import EventForm from '../form/Form';
+import EventForm from '../form/CreateEventForm';
+import UpdateEventForm from '../form/UpdateEventForm';
 import Main from '../main/Main';
 
 export default function Routes() {
@@ -17,7 +18,7 @@ export default function Routes() {
 					<Event />
 				</Route>
 				<Route exact path='/edit-form'>
-					<EventForm formType={'update'} />
+					<UpdateEventForm />
 				</Route>
 			</Switch>
 		</div>
