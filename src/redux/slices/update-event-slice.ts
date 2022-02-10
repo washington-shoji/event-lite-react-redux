@@ -44,11 +44,16 @@ const updateEventOnApiSlice = createSlice({
 			state.updateHasError = true;
 			state.updateErrorMessage = payload;
 		},
+		updateResetState: () => initialState,
 	},
 });
 
-export const { updateEventCall, updateEventsSuccess, updateEventsFailure } =
-	updateEventOnApiSlice.actions;
+export const {
+	updateEventCall,
+	updateEventsSuccess,
+	updateEventsFailure,
+	updateResetState,
+} = updateEventOnApiSlice.actions;
 
 export const updateEventSelector = (state: RootState) => state.updateEvent;
 

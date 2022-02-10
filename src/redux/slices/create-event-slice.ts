@@ -44,11 +44,17 @@ const createEventOnApiSlice = createSlice({
 			state.createHasError = true;
 			state.createErrorMessage = payload;
 		},
+
+		createResetState: () => initialState,
 	},
 });
 
-export const { createEventCall, createEventsSuccess, createEventsFailure } =
-	createEventOnApiSlice.actions;
+export const {
+	createEventCall,
+	createEventsSuccess,
+	createEventsFailure,
+	createResetState,
+} = createEventOnApiSlice.actions;
 
 export const createEventSelector = (state: RootState) => state.createEvent;
 

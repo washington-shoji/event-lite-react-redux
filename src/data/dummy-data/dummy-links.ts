@@ -9,8 +9,4 @@ export const links: ILinksProps[] = [
 		label: 'create-event',
 		link: '/create-event',
 	},
-	{
-		label: 'profile',
-		link: '/profile',
-	},
 ];
