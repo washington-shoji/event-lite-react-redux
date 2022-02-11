@@ -5,7 +5,7 @@ import './CreateEventPage.scss';
 export default function CreateEventPage() {
 	return (
 		<div>
-			<EventForm formType={'create'} />
+			<EventForm />
 		</div>
 	);
 }

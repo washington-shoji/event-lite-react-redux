@@ -26,7 +26,7 @@ export default function Main() {
 
 	return (
 		<main className='main'>
-			<div className='main__car-wrapper'>
+			<div className='main__card-wrapper'>
 				{events.map((card: any) => {
 					return <MainCard key={card._id} {...card} />;
 				})}

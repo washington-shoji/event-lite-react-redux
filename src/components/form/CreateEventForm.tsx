@@ -26,15 +26,13 @@ import { createEventOnApiThunk } from './../../redux/slices/create-event-slice';
 import { updateEventOnApiThunk } from '../../redux/slices/update-event-slice';
 import Toast from '../toast/Toast';
 
-export default function EventForm(props: { formType: string }) {
+export default function EventForm() {
 	const { state } = useLocation<IEvent>();
 
 	const { createLoading, createdEvent, createErrorMessage } =
 		useAppSelector(createEventSelector);
 
 	const dispatch = useAppDispatch();
-
-	const _id = state?._id;
 
 	const event = createdEvent;
 

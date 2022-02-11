@@ -33,6 +33,7 @@
 	gap: index.$main-gap-2;
 	flex-direction: column;
 	justify-content: baseline;
+	align-items: stretch;
 
 	& img {
 		border-radius: 4px;
@@ -67,8 +68,10 @@
 
 	.form__inputs_2 {
 		display: flex;
-		flex-direction: row;
-		align-items: baseline;
+		flex-direction: column;
+		align-items: stretch;
+		width: 100%;
+		flex-wrap: wrap;
 		gap: index.$main-gap-2;
 
 		& label {
@@ -79,6 +82,7 @@
 		& .form__field {
 			outline: none;
 			display: block;
+			width: 100%;
 			background: rgba(#fcfcfc, 0.8);
 			border: 0;
 			border-radius: 4px;
@@ -120,5 +124,11 @@
 	& .form__button {
 		display: flex;
 		justify-content: space-evenly;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.form__content {
+		flex-direction: column;
 	}
 }

@@ -77,6 +77,7 @@ export default function Event(): JSX.Element {
 					<Toast
 						type={'success'}
 						title={'Success'}
+						resetState={deleteResetState()}
 						description={'You event was successfully deleted!'}
 						redirect={'/'}
 					/>

@@ -6,14 +6,14 @@
 	justify-content: center;
 }
 
-.main__car-wrapper {
+.main__card-wrapper {
 	display: grid;
 	gap: index.$main-gap-1;
 	grid-template-columns: repeat(3, 1fr);
 }
 
 @media only screen and (max-width: 1000px) {
-	.main__car-wrapper {
+	.main__card-wrapper {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
