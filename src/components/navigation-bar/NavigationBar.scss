@@ -20,5 +20,6 @@
 
 .navigation-bar__menu__container {
 	display: flex;
+	align-items: baseline;
 	gap: index.$secondary-gap-1;
 }

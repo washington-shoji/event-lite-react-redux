@@ -4,7 +4,7 @@
 
     I.e. yarn add
     
-    sass react-router-dom formik axios yup react-redux @reduxjs/toolkit
+    sass react-router-dom formik axios yup react-redux @reduxjs/toolkit @auth0/auth0-react
 
 ## Dev Dependencies
 

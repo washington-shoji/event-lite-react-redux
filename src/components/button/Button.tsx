@@ -10,7 +10,11 @@ interface IButtonProps {
 export default function Button(props: IButtonProps) {
 	return (
 		<div className='button-container'>
-			<button onClick={props.onClick} type={props.type}>
+			<button
+				className={`${props.type}`}
+				onClick={props.onClick}
+				type={props.type}
+			>
 				{props.title}
 			</button>
 		</div>

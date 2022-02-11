@@ -68,7 +68,11 @@ export default function Event(): JSX.Element {
 							<ButtonLoading title='Submitting' />
 						) : (
 							<div>
-								<Button title={'Delete'} onClick={handleDeleteEvent} />
+								<Button
+									onClick={handleDeleteEvent}
+									type='reset'
+									title={'Delete'}
+								/>
 							</div>
 						)}
 					</div>

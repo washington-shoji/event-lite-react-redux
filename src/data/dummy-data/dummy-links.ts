@@ -2,7 +2,7 @@ import { ILinksProps } from '../../components/navigation-bar/NavigationBarMenu';
 
 export const links: ILinksProps[] = [
 	{
-		label: 'home',
+		label: 'events',
 		link: '/',
 	},
 	{

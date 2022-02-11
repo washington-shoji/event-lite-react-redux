@@ -15,7 +15,13 @@ export default function Main() {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		let isApiSubscribed = true;
+
 		dispatch(getEventsFromApiThunk());
+
+		return () => {
+			isApiSubscribed = false;
+		};
 	}, [dispatch]);
 
 	if (loading) {
