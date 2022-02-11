@@ -9,7 +9,7 @@ export default function LandingPage() {
 		<main className='landing-page'>
 			<div className='landing-page__container'>
 				<div className='landing-page__container__content'>
-					<h1>Welcome to Event X App</h1>
+					<h1>Welcome to Event Lite</h1>
 					<p>Please login to get started</p>
 					<Button
 						onClick={() => loginWithRedirect()}
