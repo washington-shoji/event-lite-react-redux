@@ -10,6 +10,8 @@
 
     I.e. yarn add --dev
 
+    @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-airbnb eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier
+
 ### Types Dev Dependencies
 
     I.e. yarn add --dev
