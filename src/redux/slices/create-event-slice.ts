@@ -18,7 +18,7 @@ export const initialState: IInitialState = {
     createdEvent: {
         _id: '',
         title: '',
-        date: '',
+        date: new Date().toDateString(),
         location: '',
         shortDescription: '',
         fullDescription: '',
