@@ -1,24 +1,30 @@
-import React from 'react';
-import './MainCard.scss';
-import Button from '../button/Button';
-import { Link } from 'react-router-dom';
-import { IEvent } from '../../interfaces/event.interface';
+import React from 'react'
+import './MainCard.scss'
+import { Link } from 'react-router-dom'
+import Button from '../button/Button'
+import { IEvent } from '../../interfaces/event.interface'
 
-export default function MainCard(props: IEvent) {
-	return (
-		<div className='main-card'>
-			<div className='main-card__image'>
-				<img src={props.image} alt=''></img>
-			</div>
-			<div className='main-card__content'>
-				<h1>{props.title}</h1>
-				<p>{new Date(props.date).toDateString()}</p>
-				<p>{props.location}</p>
-				<p>{props.status}</p>
-				<Link to={{ pathname: `/event/${props._id}`, state: { ...props } }}>
-					<Button onClick={() => {}} title={'Info'} />
-				</Link>
-			</div>
-		</div>
-	);
+export default function MainCard(props: IEvent): JSX.Element {
+    const { _id, title, date, location, image, status } = props
+    return (
+        <div className="main-card">
+            <div className="main-card__image">
+                <img src={image} alt={title} />
+            </div>
+            <div className="main-card__content">
+                <h1>{title}</h1>
+                <p>{new Date(date).toDateString()}</p>
+                <p>{location}</p>
+                <p>{status}</p>
+                <Link
+                    to={{
+                        pathname: `/event/${_id}`,
+                        state: { ...props },
+                    }}
+                >
+                    <Button title="Info" />
+                </Link>
+            </div>
+        </div>
+    )
 }

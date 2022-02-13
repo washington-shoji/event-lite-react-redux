@@ -1,17 +1,19 @@
-import React from 'react';
-import './ButtonLoading.scss';
+import React from 'react'
+import './ButtonLoading.scss'
 
 interface IButtonLoadingProps {
-	title: string;
+    title: string
 }
 
-export default function ButtonLoading(props: IButtonLoadingProps) {
-	return (
-		<div className='button'>
-			<button type='button' disabled>
-				<div className='button__spinner'></div>
-				{props.title}
-			</button>
-		</div>
-	);
+export default function ButtonLoading({
+    title,
+}: IButtonLoadingProps): JSX.Element {
+    return (
+        <div className="button">
+            <button type="button" disabled>
+                <div className="button__spinner" />
+                {title}
+            </button>
+        </div>
+    )
 }

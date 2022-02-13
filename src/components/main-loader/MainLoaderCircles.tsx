@@ -1,6 +1,6 @@
-import React from 'react';
-import './MainLoaderCircles.scss';
+import React from 'react'
+import './MainLoaderCircles.scss'
 
-export default function MainLoaderCircles() {
-	return <div className='loader'></div>;
+export default function MainLoaderCircles(): JSX.Element {
+    return <div className="loader" />
 }

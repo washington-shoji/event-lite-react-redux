@@ -1,6 +1,6 @@
-import React from 'react';
-import './MainLoaderSpheres.scss';
+import React from 'react'
+import './MainLoaderSpheres.scss'
 
-export default function MainLoader() {
-	return <div className='main-loader'></div>;
+export default function MainLoader(): JSX.Element {
+    return <div className="main-loader" />
 }

@@ -1,42 +1,47 @@
-import React, { useEffect } from 'react';
-import { getEventsSelector } from '../../redux/slices/get-events-slice';
+import React, { useEffect } from 'react'
 import {
-	useAppSelector,
-	useAppDispatch,
-} from '../../utils/hooks/redux/redux-toolkit-hooks';
-import './Main.scss';
-import MainCard from './MainCard';
-import { getEventsFromApiThunk } from './../../redux/slices/get-events-slice';
-import MainLoaderCircles from '../main-loader/MainLoaderCircles';
+    getEventsSelector,
+    getEventsFromApiThunk,
+} from '../../redux/slices/get-events-slice'
+import {
+    useAppSelector,
+    useAppDispatch,
+} from '../../utils/hooks/redux/redux-toolkit-hooks'
+import './Main.scss'
+import MainCard from './MainCard'
+import MainLoaderCircles from '../main-loader/MainLoaderCircles'
+import { IEvent } from '../../interfaces/event.interface'
 
-export default function Main() {
-	const { loading, events, errorMessage } = useAppSelector(getEventsSelector);
+export default function Main(): JSX.Element {
+    const { loading, events, errorMessage } = useAppSelector(getEventsSelector)
 
-	const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch()
 
-	useEffect(() => {
-		let isApiSubscribed = true;
+    useEffect(() => {
+        let isApiSubscribed = true
 
-		dispatch(getEventsFromApiThunk());
+        dispatch(getEventsFromApiThunk())
 
-		return () => {
-			isApiSubscribed = false;
-		};
-	}, [dispatch]);
+        return () => {
+            isApiSubscribed = false
+        }
+    }, [dispatch])
 
-	if (loading) {
-		return <main className='main'>{loading && <MainLoaderCircles />}</main>;
-	} else if (errorMessage) {
-		<main className='main'>{errorMessage && <h1>{errorMessage}</h1>}</main>;
-	}
+    if (loading) {
+        return <main className="main">{loading && <MainLoaderCircles />}</main>
+    }
+    if (errorMessage) {
+        ;<main className="main">{errorMessage && <h1>{errorMessage}</h1>}</main>
+    }
 
-	return (
-		<main className='main'>
-			<div className='main__card-wrapper'>
-				{events.map((card: any) => {
-					return <MainCard key={card._id} {...card} />;
-				})}
-			</div>
-		</main>
-	);
+    return (
+        <main className="main">
+            <div className="main__card-wrapper">
+                {events.map((card: IEvent) => {
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    return <MainCard key={card._id} {...card} />
+                })}
+            </div>
+        </main>
+    )
 }
