@@ -4,7 +4,7 @@
 
     I.e. yarn add
     
-    sass react-router-dom formik axios yup react-redux @reduxjs/toolkit @auth0/auth0-react
+    sass react-router-dom formik axios yup react-redux @reduxjs/toolkit @auth0/auth0-react react-datepicker react-select
 
 ## Dev Dependencies
 
@@ -16,7 +16,7 @@
 
     I.e. yarn add --dev
 
-    @types/react-router-dom
+    @types/react-router-dom @types/react-datepicker
 
 ## Initialise tsconfig.json file for typescript
 
