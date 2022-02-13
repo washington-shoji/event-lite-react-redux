@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import './Form.scss'
 import { Formik, Field, Form } from 'formik'
 import { Link } from 'react-router-dom'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import Select from 'react-select'
 import Button from '../button/Button'
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper'
 import { EventValidationSchema } from '../../utils/validator/form-validator'
@@ -38,6 +41,11 @@ export default function EventForm(): JSX.Element {
         status: event.status,
     }
 
+    const options = [
+        { value: 'open', label: 'Open' },
+        { value: 'posted', label: 'Posted' },
+    ]
+
     return (
         <div className="form">
             <div className="form__header">
@@ -55,12 +63,12 @@ export default function EventForm(): JSX.Element {
                         //! Todo: Refactor this block of business logic
                         const data = {
                             title: values.title,
-                            date: values.date,
+                            date: values.date.toString(),
                             location: values.location,
                             shortDescription: values.shortDescription,
                             fullDescription: values.fullDescription,
                             image: parsedImageUrl,
-                            status: values.status,
+                            status: values.status.toString(),
                         }
 
                         dispatch(createEventOnApiThunk(data))
@@ -118,13 +126,29 @@ export default function EventForm(): JSX.Element {
                                     </div>
                                     <div>
                                         <label htmlFor="date">Date</label>
-                                        <Field
+                                        <DatePicker
+                                            id="date"
+                                            name="date"
+                                            className="form__field"
+                                            showTimeSelect
+                                            dateFormat="d MMMM, yyyy h:mm aa"
+                                            selected={
+                                                new Date(formProps.values.date)
+                                            }
+                                            onChange={(e) => {
+                                                formProps.setFieldValue(
+                                                    'date',
+                                                    e
+                                                )
+                                            }}
+                                        />
+                                        {/* <Field
                                             id="date"
                                             name="date"
                                             placeholder="Event date"
                                             type="datetime-local"
                                             className="form__field"
-                                        />
+                                        /> */}
                                         {formProps.errors.date &&
                                         formProps.touched.date ? (
                                             <div className="form__validation">
@@ -156,7 +180,18 @@ export default function EventForm(): JSX.Element {
                                     </div>
                                     <div>
                                         <label htmlFor="status">Status</label>
-                                        <Field
+                                        <Select
+                                            id="status"
+                                            name="status"
+                                            options={options}
+                                            onChange={(value) => {
+                                                formProps.setFieldValue(
+                                                    'status',
+                                                    value?.value
+                                                )
+                                            }}
+                                        />
+                                        {/* <Field
                                             id="status"
                                             name="status"
                                             placeholder="Event status"
@@ -167,7 +202,7 @@ export default function EventForm(): JSX.Element {
                                             <option value="posted">
                                                 Posted
                                             </option>
-                                        </Field>
+                                        </Field> */}
                                         {formProps.errors.status &&
                                         formProps.touched.status ? (
                                             <div className="form__validation">
