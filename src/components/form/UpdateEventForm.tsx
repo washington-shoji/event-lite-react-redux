@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import './Form.scss'
 import { Formik, Field, Form } from 'formik'
 import { Link, useLocation } from 'react-router-dom'
+import DatePicker from 'react-datepicker'
 import Button from '../button/Button'
+import 'react-datepicker/dist/react-datepicker.css'
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper'
 import { EventValidationSchema } from '../../utils/validator/form-validator'
 import ButtonLoading from '../button/ButtonLoading'
@@ -59,7 +61,7 @@ export default function UpdateEventForm(): JSX.Element {
                         //! Todo: Refactor this block of business logic
                         const data = {
                             title: values.title,
-                            date: values.date,
+                            date: values.date.toString(),
                             location: values.location,
                             shortDescription: values.shortDescription,
                             fullDescription: values.fullDescription,
@@ -117,13 +119,29 @@ export default function UpdateEventForm(): JSX.Element {
                                     </div>
                                     <div>
                                         <label htmlFor="date">Date</label>
-                                        <Field
+                                        <DatePicker
+                                            id="date"
+                                            name="date"
+                                            className="form__field"
+                                            showTimeSelect
+                                            dateFormat="d MMMM, yyyy h:mm aa"
+                                            selected={
+                                                new Date(formProps.values.date)
+                                            }
+                                            onChange={(e) => {
+                                                formProps.setFieldValue(
+                                                    'date',
+                                                    e
+                                                )
+                                            }}
+                                        />
+                                        {/* <Field
                                             id="date"
                                             name="date"
                                             placeholder="Event date"
                                             type="datetime-local"
                                             className="form__field"
-                                        />
+                                        /> */}
                                         {formProps.errors.date &&
                                         formProps.touched.date ? (
                                             <div className="form__validation">
