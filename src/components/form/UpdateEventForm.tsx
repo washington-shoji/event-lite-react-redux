@@ -101,148 +101,175 @@ export default function UpdateEventForm(): JSX.Element {
                                 </div>
                             </div>
                             <div className="form__content__right">
-                                <div className="form__inputs_2">
-                                    <div>
-                                        <label htmlFor="title">Title</label>
-                                        <Field
-                                            id="title"
-                                            name="title"
-                                            placeholder="Event title"
-                                            className="form__field"
-                                        />
-                                        {formProps.errors.title &&
-                                        formProps.touched.title ? (
-                                            <div className="form__validation">
-                                                <p>{formProps.errors.title}</p>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                    <div>
-                                        <label htmlFor="date">Date</label>
-                                        <DatePicker
-                                            id="date"
-                                            name="date"
-                                            className="form__field"
-                                            showTimeSelect
-                                            dateFormat="d MMMM, yyyy h:mm aa"
-                                            selected={
-                                                new Date(formProps.values.date)
-                                            }
-                                            onChange={(e) => {
-                                                formProps.setFieldValue(
-                                                    'date',
-                                                    e
-                                                )
-                                            }}
-                                        />
-                                        {/* <Field
-                                            id="date"
-                                            name="date"
-                                            placeholder="Event date"
-                                            type="datetime-local"
-                                            className="form__field"
-                                        /> */}
-                                        {formProps.errors.date &&
-                                        formProps.touched.date ? (
-                                            <div className="form__validation">
-                                                <p>{formProps.errors.date}</p>
-                                            </div>
-                                        ) : null}
+                                <div className="form__inputs">
+                                    <div className="form__inputs_half">
+                                        <label
+                                            htmlFor="title"
+                                            className="form__input__label"
+                                        >
+                                            Title
+                                            <Field
+                                                id="title"
+                                                name="title"
+                                                placeholder="Event title"
+                                                className="form__field"
+                                            />
+                                            {formProps.errors.title &&
+                                            formProps.touched.title ? (
+                                                <div className="form__validation">
+                                                    <p>
+                                                        {formProps.errors.title}
+                                                    </p>
+                                                </div>
+                                            ) : null}
+                                        </label>
+                                        <label
+                                            htmlFor="date"
+                                            className="form__input__label"
+                                        >
+                                            Date
+                                            <DatePicker
+                                                id="date"
+                                                name="date"
+                                                className="form__field"
+                                                showTimeSelect
+                                                dateFormat="d MMMM, yyyy h:mm aa"
+                                                selected={
+                                                    new Date(
+                                                        formProps.values.date
+                                                    )
+                                                }
+                                                onChange={(e) => {
+                                                    formProps.setFieldValue(
+                                                        'date',
+                                                        e
+                                                    )
+                                                }}
+                                            />
+                                            {formProps.errors.date &&
+                                            formProps.touched.date ? (
+                                                <div className="form__validation">
+                                                    <p>
+                                                        {formProps.errors.date}
+                                                    </p>
+                                                </div>
+                                            ) : null}
+                                        </label>
                                     </div>
                                 </div>
 
-                                <div className="form__inputs_2">
-                                    <div>
-                                        <label htmlFor="location">
+                                <div className="form__inputs">
+                                    <div className="form__inputs_half">
+                                        <label
+                                            htmlFor="location"
+                                            className="form__input__label"
+                                        >
                                             Location
+                                            <Field
+                                                id="location"
+                                                name="location"
+                                                placeholder="Event location"
+                                                className="form__field"
+                                            />
+                                            {formProps.errors.location &&
+                                            formProps.touched.location ? (
+                                                <div className="form__validation">
+                                                    <p>
+                                                        {
+                                                            formProps.errors
+                                                                .location
+                                                        }
+                                                    </p>
+                                                </div>
+                                            ) : null}
                                         </label>
+                                        <label
+                                            htmlFor="status"
+                                            className="form__input__label"
+                                        >
+                                            Status
+                                            <Field
+                                                id="status"
+                                                name="status"
+                                                placeholder="Event status"
+                                                as="select"
+                                                className="form__field"
+                                            >
+                                                <option value="open">
+                                                    Open
+                                                </option>
+                                                <option value="posted">
+                                                    Posted
+                                                </option>
+                                            </Field>
+                                            {formProps.errors.status &&
+                                            formProps.touched.status ? (
+                                                <div className="form__validation">
+                                                    <p>
+                                                        {
+                                                            formProps.errors
+                                                                .status
+                                                        }
+                                                    </p>
+                                                </div>
+                                            ) : null}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="form__inputs">
+                                    <label
+                                        htmlFor="shortDescription"
+                                        className="form__input__label"
+                                    >
+                                        Short Description
                                         <Field
-                                            id="location"
-                                            name="location"
-                                            placeholder="Event location"
+                                            id="shortDescription"
+                                            name="shortDescription"
+                                            placeholder="Event short description"
+                                            as="textarea"
+                                            rows="2"
                                             className="form__field"
                                         />
-                                        {formProps.errors.location &&
-                                        formProps.touched.location ? (
+                                        {formProps.errors.shortDescription &&
+                                        formProps.touched.shortDescription ? (
                                             <div className="form__validation">
                                                 <p>
-                                                    {formProps.errors.location}
+                                                    {
+                                                        formProps.errors
+                                                            .shortDescription
+                                                    }
                                                 </p>
                                             </div>
                                         ) : null}
-                                    </div>
-                                    <div>
-                                        <label htmlFor="status">Status</label>
+                                    </label>
+                                </div>
+                                <div className="form__inputs">
+                                    <label
+                                        htmlFor="fullDescription"
+                                        className="form__input__label"
+                                    >
+                                        Full description
                                         <Field
-                                            id="status"
-                                            name="status"
-                                            placeholder="Event status"
-                                            as="select"
+                                            id="fullDescription"
+                                            name="fullDescription"
+                                            placeholder="Event full description"
+                                            as="textarea"
+                                            rows="10"
                                             className="form__field"
-                                        >
-                                            <option value="open">Open</option>
-                                            <option value="posted">
-                                                Posted
-                                            </option>
-                                        </Field>
-                                        {formProps.errors.status &&
-                                        formProps.touched.status ? (
+                                        />
+                                        {formProps.errors.fullDescription &&
+                                        formProps.touched.fullDescription ? (
                                             <div className="form__validation">
-                                                <p>{formProps.errors.status}</p>
+                                                <p>
+                                                    {
+                                                        formProps.errors
+                                                            .fullDescription
+                                                    }
+                                                </p>
                                             </div>
                                         ) : null}
-                                    </div>
-                                </div>
-
-                                <div className="form__inputs">
-                                    <label htmlFor="shortDescription">
-                                        Short Description
                                     </label>
-                                    <Field
-                                        id="shortDescription"
-                                        name="shortDescription"
-                                        placeholder="Event short description"
-                                        as="textarea"
-                                        rows="2"
-                                        className="form__field"
-                                    />
-                                    {formProps.errors.shortDescription &&
-                                    formProps.touched.shortDescription ? (
-                                        <div className="form__validation">
-                                            <p>
-                                                {
-                                                    formProps.errors
-                                                        .shortDescription
-                                                }
-                                            </p>
-                                        </div>
-                                    ) : null}
-                                </div>
-
-                                <div className="form__inputs">
-                                    <label htmlFor="fullDescription">
-                                        Full description
-                                    </label>
-                                    <Field
-                                        id="fullDescription"
-                                        name="fullDescription"
-                                        placeholder="Event full description"
-                                        as="textarea"
-                                        rows="10"
-                                        className="form__field"
-                                    />
-
-                                    {formProps.errors.fullDescription &&
-                                    formProps.touched.fullDescription ? (
-                                        <div className="form__validation">
-                                            <p>
-                                                {
-                                                    formProps.errors
-                                                        .fullDescription
-                                                }
-                                            </p>
-                                        </div>
-                                    ) : null}
                                 </div>
                                 <div className="form__button">
                                     {updateLoading ? (
