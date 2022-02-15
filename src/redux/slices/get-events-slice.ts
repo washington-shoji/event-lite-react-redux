@@ -47,13 +47,21 @@ export const getEventsSelector = (state: RootState): IInitialState =>
 
 export default getEventFromApiSlice.reducer
 
-export function getEventsFromApiThunk() {
+export function getEventsFromApiThunk(getAccessToken?: Promise<string>) {
     return async (dispatch: Dispatch): Promise<void> => {
         dispatch(getEventsCall())
 
         try {
+            const token = await getAccessToken
+
             const apiResponse = await axios.get<IEvent[]>(
-                `${process.env.REACT_APP_BASE_API_URL}/event`
+                // `${process.env.REACT_APP_BASE_API_URL}/event`
+                `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             )
 
             const { data } = apiResponse

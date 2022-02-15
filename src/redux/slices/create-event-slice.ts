@@ -22,7 +22,8 @@ export const initialState: IInitialState = {
         location: '',
         shortDescription: '',
         fullDescription: '',
-        image: '',
+        secureUrl: '',
+        imageId: '',
         status: '',
     },
 }
@@ -62,14 +63,24 @@ export const createEventSelector = (state: RootState): IInitialState =>
 
 export default createEventOnApiSlice.reducer
 
-export function createEventOnApiThunk(formData: IEvent) {
+export function createEventOnApiThunk(
+    formData: IEvent,
+    getAccessToken?: Promise<string>
+) {
     return async (dispatch: Dispatch): Promise<void> => {
         dispatch(createEventCall())
 
         try {
+            const token = await getAccessToken
             const apiResponse = await axios.post<IEvent>(
-                `${process.env.REACT_APP_BASE_API_URL}/event`,
-                formData
+                // `${process.env.REACT_APP_BASE_API_URL}/event`,
+                `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
+                formData,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             )
 
             const { data } = apiResponse
