@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useAuth0, User } from '@auth0/auth0-react'
 import {
     getEventsSelector,
     getEventsFromApiThunk,
@@ -13,6 +14,7 @@ import MainLoaderCircles from '../main-loader/MainLoaderCircles'
 import { IEvent } from '../../interfaces/event.interface'
 
 export default function Main(): JSX.Element {
+    const { getAccessTokenSilently } = useAuth0<User>()
     const { loading, events, errorMessage } = useAppSelector(getEventsSelector)
 
     const dispatch = useAppDispatch()
@@ -20,12 +22,12 @@ export default function Main(): JSX.Element {
     useEffect(() => {
         let isApiSubscribed = true
 
-        dispatch(getEventsFromApiThunk())
+        dispatch(getEventsFromApiThunk(getAccessTokenSilently()))
 
         return () => {
             isApiSubscribed = false
         }
-    }, [dispatch])
+    }, [dispatch, getAccessTokenSilently])
 
     if (loading) {
         return <main className="main">{loading && <MainLoaderCircles />}</main>
