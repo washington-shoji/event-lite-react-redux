@@ -3,6 +3,7 @@ import './Form.scss'
 import { Formik, Field, Form } from 'formik'
 import { Link, useLocation } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
+import { useAuth0, User } from '@auth0/auth0-react'
 import Button from '../button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper'
@@ -21,6 +22,7 @@ import {
 import Toast from '../toast/Toast'
 
 export default function UpdateEventForm(): JSX.Element {
+    const { getAccessTokenSilently } = useAuth0<User>()
     const { state } = useLocation<IEvent>()
 
     const { updateLoading, updatedEvent, updateErrorMessage } =
@@ -30,7 +32,7 @@ export default function UpdateEventForm(): JSX.Element {
 
     const _id = state?._id
 
-    const [imagePreview, setImagePreview] = useState(state.image)
+    const [imagePreview, setImagePreview] = useState(state.secureUrl)
 
     const initialState = {
         title: state.title,
@@ -38,7 +40,8 @@ export default function UpdateEventForm(): JSX.Element {
         location: state.location,
         shortDescription: state.shortDescription,
         fullDescription: state.fullDescription,
-        image: imagePreview,
+        secureUrl: imagePreview,
+        imageId: state.imageId,
         status: state.status,
     }
 
@@ -56,7 +59,7 @@ export default function UpdateEventForm(): JSX.Element {
                         //! Todo: Add a conditional to very if the image is the same or has changed
                         //! Todo: prior to send to cloudinary
                         const parsedImageUrl =
-                            await cloudinaryImageHandlerHelper(values.image)
+                            await cloudinaryImageHandlerHelper(values.secureUrl)
 
                         //! Todo: Refactor this block of business logic
                         const data = {
@@ -65,11 +68,18 @@ export default function UpdateEventForm(): JSX.Element {
                             location: values.location,
                             shortDescription: values.shortDescription,
                             fullDescription: values.fullDescription,
-                            image: parsedImageUrl,
+                            secureUrl: parsedImageUrl.secureUrl,
+                            imageId: values.imageId,
                             status: values.status,
                         }
 
-                        dispatch(updateEventOnApiThunk(_id as string, data))
+                        dispatch(
+                            updateEventOnApiThunk(
+                                _id as string,
+                                data,
+                                getAccessTokenSilently()
+                            )
+                        )
                         resetForm(initialState)
                     }}
                 >

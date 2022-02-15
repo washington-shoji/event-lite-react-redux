@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Select from 'react-select'
+import { useAuth0, User } from '@auth0/auth0-react'
 import Button from '../button/Button'
 import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper'
 import { EventValidationSchema } from '../../utils/validator/form-validator'
@@ -22,6 +23,7 @@ import {
 import Toast from '../toast/Toast'
 
 export default function EventForm(): JSX.Element {
+    const { getAccessTokenSilently } = useAuth0<User>()
     const { createLoading, createdEvent, createErrorMessage } =
         useAppSelector(createEventSelector)
 
@@ -29,7 +31,7 @@ export default function EventForm(): JSX.Element {
 
     const event = createdEvent
 
-    const [imagePreview, setImagePreview] = useState(event.image)
+    const [imagePreview, setImagePreview] = useState(event.secureUrl)
 
     const initialState = {
         title: event.title,
@@ -37,7 +39,8 @@ export default function EventForm(): JSX.Element {
         location: event.location,
         shortDescription: event.shortDescription,
         fullDescription: event.fullDescription,
-        image: imagePreview,
+        secureUrl: imagePreview,
+        imageId: event.imageId,
         status: event.status,
     }
 
@@ -58,7 +61,7 @@ export default function EventForm(): JSX.Element {
                     validationSchema={EventValidationSchema}
                     onSubmit={async (values: IEvent, { resetForm }) => {
                         const parsedImageUrl =
-                            await cloudinaryImageHandlerHelper(values.image)
+                            await cloudinaryImageHandlerHelper(values.secureUrl)
 
                         //! Todo: Refactor this block of business logic
                         const data = {
@@ -67,11 +70,17 @@ export default function EventForm(): JSX.Element {
                             location: values.location,
                             shortDescription: values.shortDescription,
                             fullDescription: values.fullDescription,
-                            image: parsedImageUrl,
+                            secureUrl: parsedImageUrl.secureUrl,
+                            imageId: parsedImageUrl.publicId,
                             status: values.status.toString(),
                         }
 
-                        dispatch(createEventOnApiThunk(data))
+                        dispatch(
+                            createEventOnApiThunk(
+                                data,
+                                getAccessTokenSilently()
+                            )
+                        )
 
                         if (!createErrorMessage) {
                             resetForm(initialState)
@@ -86,15 +95,15 @@ export default function EventForm(): JSX.Element {
                                     <label htmlFor="image">
                                         Image
                                         <input
-                                            id="image"
-                                            name="image"
+                                            id="secureUrl"
+                                            name="secureUrl"
                                             type="file"
                                             className="form__field"
                                             onChange={(
                                                 e: React.ChangeEvent<any>
                                             ) => {
                                                 formProps.setFieldValue(
-                                                    'image',
+                                                    'secureUrl',
                                                     e.currentTarget.files[0]
                                                 )
                                                 setImagePreview(
