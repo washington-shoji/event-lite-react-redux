@@ -1,3 +1,4 @@
+import { useAuth0, User } from '@auth0/auth0-react'
 import React, { useCallback } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { IEvent } from '../../interfaces/event.interface'
@@ -17,6 +18,7 @@ import Toast from '../toast/Toast'
 import './Event.scss'
 
 export default function Event(): JSX.Element {
+    const { getAccessTokenSilently } = useAuth0<User>()
     const { state } = useLocation<IEvent>()
     const history = useHistory()
     const dispatch = useAppDispatch()
@@ -32,7 +34,8 @@ export default function Event(): JSX.Element {
         status,
         shortDescription,
         fullDescription,
-        image,
+        secureUrl,
+        imageId,
     } = state
 
     // function handleDeleteEvent(): void {
@@ -43,15 +46,17 @@ export default function Event(): JSX.Element {
 
     const handleDeleteEvent = useCallback(() => {
         if (_id) {
-            dispatch(deleteEventOnApiThunk(_id))
+            dispatch(
+                deleteEventOnApiThunk(_id, imageId, getAccessTokenSilently())
+            )
         }
-    }, [_id, dispatch])
+    }, [_id, dispatch, getAccessTokenSilently, imageId])
 
     return (
         <article className="event">
             <div className="event__wrapper">
                 <div className="event__image">
-                    <img src={image} alt={title} />
+                    <img src={secureUrl} alt={title} />
                 </div>
                 <div className="event__contents">
                     <div className="event__details">
