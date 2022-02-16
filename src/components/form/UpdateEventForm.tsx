@@ -6,7 +6,10 @@ import DatePicker from 'react-datepicker'
 import { useAuth0, User } from '@auth0/auth0-react'
 import Button from '../button/Button'
 import 'react-datepicker/dist/react-datepicker.css'
-import { cloudinaryImageHandlerHelper } from '../../utils/helpers/cloudinary.helper'
+import {
+    cloudinaryImageHandlerHelper,
+    ICloudinaryImage,
+} from '../../utils/helpers/cloudinary.helper'
 import { EventValidationSchema } from '../../utils/validator/form-validator'
 import ButtonLoading from '../button/ButtonLoading'
 import { IEvent } from '../../interfaces/event.interface'
@@ -30,7 +33,7 @@ export default function UpdateEventForm(): JSX.Element {
 
     const dispatch = useAppDispatch()
 
-    const _id = state?._id
+    const { _id } = state
 
     const [imagePreview, setImagePreview] = useState(state.secureUrl)
 
@@ -40,7 +43,7 @@ export default function UpdateEventForm(): JSX.Element {
         location: state.location,
         shortDescription: state.shortDescription,
         fullDescription: state.fullDescription,
-        secureUrl: imagePreview,
+        secureUrl: state.secureUrl,
         imageId: state.imageId,
         status: state.status,
     }
@@ -56,21 +59,39 @@ export default function UpdateEventForm(): JSX.Element {
                     initialValues={initialState}
                     validationSchema={EventValidationSchema}
                     onSubmit={async (values: IEvent, { resetForm }) => {
-                        //! Todo: Add a conditional to very if the image is the same or has changed
-                        //! Todo: prior to send to cloudinary
-                        const parsedImageUrl =
-                            await cloudinaryImageHandlerHelper(values.secureUrl)
+                        let data: IEvent
 
                         //! Todo: Refactor this block of business logic
-                        const data = {
-                            title: values.title,
-                            date: values.date.toString(),
-                            location: values.location,
-                            shortDescription: values.shortDescription,
-                            fullDescription: values.fullDescription,
-                            secureUrl: parsedImageUrl.secureUrl,
-                            imageId: values.imageId,
-                            status: values.status,
+
+                        //! Todo: Add a conditional to veryfy if the image is the same or has changed
+                        //! Todo: prior to send to cloudinary
+                        if (values.secureUrl !== initialState.secureUrl) {
+                            const parsedImageUrl: ICloudinaryImage =
+                                await cloudinaryImageHandlerHelper(
+                                    values.secureUrl
+                                )
+
+                            data = {
+                                title: values.title,
+                                date: values.date.toString(),
+                                location: values.location,
+                                shortDescription: values.shortDescription,
+                                fullDescription: values.fullDescription,
+                                secureUrl: parsedImageUrl.secureUrl,
+                                imageId: parsedImageUrl.publicId,
+                                status: values.status,
+                            }
+                        } else {
+                            data = {
+                                title: values.title,
+                                date: values.date.toString(),
+                                location: values.location,
+                                shortDescription: values.shortDescription,
+                                fullDescription: values.fullDescription,
+                                secureUrl: values.secureUrl,
+                                imageId: values.imageId,
+                                status: values.status,
+                            }
                         }
 
                         dispatch(
@@ -90,15 +111,15 @@ export default function UpdateEventForm(): JSX.Element {
                                 <div className="form__image__inputs">
                                     <label htmlFor="image">Image</label>
                                     <input
-                                        id="image"
-                                        name="image"
+                                        id="secureUrl"
+                                        name="secureUrl"
                                         type="file"
                                         className="form__field"
                                         onChange={(
                                             event: React.ChangeEvent<any>
                                         ) => {
                                             formProps.setFieldValue(
-                                                'image',
+                                                'secureUrl',
                                                 event.currentTarget.files[0]
                                             )
                                             setImagePreview(
