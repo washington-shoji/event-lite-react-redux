@@ -1,9 +1,13 @@
 import axios from 'axios'
 
+export interface ICloudinaryImage {
+    secureUrl: string
+    publicId: string
+}
 export async function cloudinaryImageHandlerHelper(
     image: string
-): Promise<string> {
-    let cloudinaryImageUrl = ''
+): Promise<ICloudinaryImage> {
+    const cloudinaryImage: ICloudinaryImage = { secureUrl: '', publicId: '' }
     const data = new FormData()
 
     data.append('file', image)
@@ -20,9 +24,11 @@ export async function cloudinaryImageHandlerHelper(
             data
         )
 
-        cloudinaryImageUrl = response.data.secure_url
+        cloudinaryImage.secureUrl = response.data.secure_url
+        cloudinaryImage.publicId = response.data.public_id
     } catch (error) {
         console.error('Response error', error)
     }
-    return cloudinaryImageUrl
+    console.info(cloudinaryImage)
+    return cloudinaryImage
 }
