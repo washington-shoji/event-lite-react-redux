@@ -55,8 +55,8 @@ export function getEventsFromApiThunk(getAccessToken?: Promise<string>) {
             const token = await getAccessToken
 
             const apiResponse = await axios.get<IEvent[]>(
-                // `${process.env.REACT_APP_BASE_API_URL}/event`
-                `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
+                `${process.env.REACT_APP_BASE_API_URL}/event`,
+                // `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
                 {
                     headers: {
                         authorization: `Bearer ${token}`,

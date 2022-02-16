@@ -73,8 +73,8 @@ export function createEventOnApiThunk(
         try {
             const token = await getAccessToken
             const apiResponse = await axios.post<IEvent>(
-                // `${process.env.REACT_APP_BASE_API_URL}/event`,
-                `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
+                `${process.env.REACT_APP_BASE_API_URL}/event`,
+                // `${process.env.REACT_APP_BASE_DEV_API_URL}/event`,
                 formData,
                 {
                     headers: {

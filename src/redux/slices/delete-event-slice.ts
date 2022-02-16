@@ -51,15 +51,25 @@ export const deleteEventSelector = (state: RootState): IInitialState =>
 
 export default deleteEventOnApiSlice.reducer
 
-export function deleteEventOnApiThunk(_id: string, imageId: string) {
+export function deleteEventOnApiThunk(
+    _id: string,
+    imageId: string,
+    getAccessToken?: Promise<string>
+) {
     return async (dispatch: Dispatch): Promise<void> => {
         dispatch(deleteEventCall())
 
         try {
+            const token = await getAccessToken
             const apiResponse = await axios.delete<string[]>(
-                // `${process.env.REACT_APP_BASE_API_URL}/event/${_id}`,
-                `${process.env.REACT_APP_BASE_DEV_API_URL}/event/${_id}`,
-                { data: { imageId } }
+                `${process.env.REACT_APP_BASE_API_URL}/event/${_id}`,
+                // `${process.env.REACT_APP_BASE_DEV_API_URL}/event/${_id}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                    data: { imageId },
+                }
             )
 
             console.log(apiResponse)
