@@ -38,12 +38,6 @@ export default function Event(): JSX.Element {
         imageId,
     } = state
 
-    // function handleDeleteEvent(): void {
-    //     if (_id) {
-    //         dispatch(deleteEventOnApiThunk(_id))
-    //     }
-    // }
-
     const handleDeleteEvent = useCallback(() => {
         if (_id) {
             dispatch(
