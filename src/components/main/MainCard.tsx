@@ -5,11 +5,11 @@ import Button from '../button/Button'
 import { IEvent } from '../../interfaces/event.interface'
 
 export default function MainCard(props: IEvent): JSX.Element {
-    const { _id, title, date, location, image, status } = props
+    const { _id, title, date, location, secureUrl, status } = props
     return (
         <div className="main-card">
             <div className="main-card__image">
-                <img src={image} alt={title} />
+                <img src={secureUrl} alt={title} />
             </div>
             <div className="main-card__content">
                 <h1>{title}</h1>

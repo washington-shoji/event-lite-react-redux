@@ -5,6 +5,7 @@ export interface IEvent {
     location: string
     shortDescription: string
     fullDescription: string
-    image: string
+    secureUrl: string
+    imageId: string
     status: string
 }
